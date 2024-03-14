@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dvyd7fkl0sm80"]
+
+[ext_resource type="Texture2D" uid="uid://css37y6pd2tbw" path="res://resources/textures/ground.png" id="1_wbnm6"]
+
+[resource]
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = ExtResource("1_wbnm6")
+roughness = 0.0
+uv1_triplanar = true
+uv1_triplanar_sharpness = 8.0
+texture_filter = 5
+distance_fade_max_distance = 1.0

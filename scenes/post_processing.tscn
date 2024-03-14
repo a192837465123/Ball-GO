@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://drmrclc72quia"]
+
+[ext_resource type="Shader" path="res://resources/shaders/chromatic_abberation.gdshader" id="1_17c2p"]
+[ext_resource type="Shader" path="res://resources/shaders/vignette.gdshader" id="2_ub8sc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7al1k"]
+shader = ExtResource("1_17c2p")
+shader_parameter/red_displacement = Vector2(0.5, 0)
+shader_parameter/green_displacement = Vector2(0, 0)
+shader_parameter/blue_displacement = Vector2(-0.5, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b5evq"]
+shader = ExtResource("2_ub8sc")
+shader_parameter/vignette_intensity = 0.2
+shader_parameter/vignette_rgb = Color(0, 0, 0, 0.196078)
+
+[node name="PostProcessing" type="CanvasLayer"]
+
+[node name="ChromaticAbberation" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_7al1k")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Vignette" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_b5evq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

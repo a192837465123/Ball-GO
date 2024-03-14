@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://dewkkyjstfl41"]
+
+[ext_resource type="Script" path="res://scenes/menu/menu.gd" id="1_iv74g"]
+[ext_resource type="Environment" uid="uid://urbiqpygqgw4" path="res://resources/environment.tres" id="1_r3c8l"]
+[ext_resource type="Material" uid="uid://t16wfvduja2l" path="res://resources/materials/white.tres" id="2_7qeqx"]
+[ext_resource type="PackedScene" uid="uid://bm5y0r18g0bkh" path="res://scenes/gameplay/objects/player/player.tscn" id="3_61obr"]
+[ext_resource type="Theme" uid="uid://cugqtsgqexswf" path="res://resources/theme.tres" id="4_y2bqn"]
+
+[node name="Menu" type="Node3D"]
+script = ExtResource("1_iv74g")
+
+[node name="Scene" type="Node3D" parent="."]
+
+[node name="Light" type="DirectionalLight3D" parent="Scene"]
+transform = Transform3D(0.5, -0.55667, 0.663414, 0, 0.766044, 0.642788, -0.866025, -0.321394, 0.383022, 0, 5, 0)
+shadow_enabled = true
+shadow_bias = 0.025
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 25.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Scene"]
+environment = ExtResource("1_r3c8l")
+
+[node name="Player" parent="Scene" instance=ExtResource("3_61obr")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.5, 0)
+
+[node name="Marker3D" type="Marker3D" parent="Scene"]
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, 0, 1.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Scene/Marker3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+current = true
+
+[node name="Combiner" type="CSGCombiner3D" parent="Scene"]
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Scene/Combiner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16, 0)
+size = Vector3(16, 32, 16)
+material = ExtResource("2_7qeqx")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Scene/Combiner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 2, -3)
+size = Vector3(9, 4, 2)
+material = ExtResource("2_7qeqx")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Scene/Combiner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 1, -0.5)
+size = Vector3(5, 2, 3)
+material = ExtResource("2_7qeqx")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_y2bqn")
+
+[node name="Buttons" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.425
+anchor_right = 0.575
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Play" type="Button" parent="UI/Buttons"]
+layout_mode = 2
+text = "Play"
+
+[node name="Settings" type="Button" parent="UI/Buttons"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Quit" type="Button" parent="UI/Buttons"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="button_down" from="UI/Buttons/Play" to="." method="_on_play_button_down"]

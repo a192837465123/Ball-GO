@@ -1,0 +1,54 @@
+[gd_scene load_steps=11 format=3 uid="uid://bm5y0r18g0bkh"]
+
+[ext_resource type="ArrayMesh" uid="uid://vhwg7elkt0vn" path="res://resources/models/body.obj" id="1_5l68k"]
+[ext_resource type="Script" path="res://scenes/gameplay/objects/player/player.gd" id="1_wv1sm"]
+[ext_resource type="Shader" path="res://resources/shaders/outline.gdshader" id="2_x75u4"]
+[ext_resource type="Texture2D" uid="uid://dccekeuy7ankc" path="res://resources/textures/face.png" id="3_md5l0"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dctr2"]
+bounce = 0.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jfh8a"]
+render_priority = 0
+shader = ExtResource("2_x75u4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b0d5f"]
+shading_mode = 0
+albedo_texture = ExtResource("3_md5l0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0tv20"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_vy13c"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_crfxg"]
+
+[node name="Player" type="RigidBody3D"]
+mass = 0.25
+physics_material_override = SubResource("PhysicsMaterial_dctr2")
+script = ExtResource("1_wv1sm")
+
+[node name="Meshes" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Meshes"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+layers = 3
+material_overlay = SubResource("ShaderMaterial_jfh8a")
+cast_shadow = 0
+mesh = ExtResource("1_5l68k")
+surface_material_override/0 = SubResource("StandardMaterial3D_b0d5f")
+surface_material_override/1 = SubResource("StandardMaterial3D_0tv20")
+
+[node name="Shadow" type="MeshInstance3D" parent="Meshes"]
+cast_shadow = 3
+mesh = SubResource("SphereMesh_vy13c")
+skeleton = NodePath("../..")
+
+[node name="SurfaceFinder" type="RayCast3D" parent="."]
+top_level = true
+visible = false
+target_position = Vector3(0, -0.75, 0)
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+visible = false
+shape = SubResource("SphereShape3D_crfxg")

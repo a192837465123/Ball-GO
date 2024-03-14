@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cugqtsgqexswf"]
+
+[ext_resource type="FontFile" uid="uid://bmxqmk5slqbpb" path="res://resources/open_sans.ttf" id="1_db15y"]
+
+[resource]
+default_font = ExtResource("1_db15y")
+default_font_size = 24
